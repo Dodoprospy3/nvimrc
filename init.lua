@@ -3,6 +3,7 @@ require("config.keymaps")
 require("config.neomd")
 require("config.lazy")
 require("config.lsp")
+require("config.diagnostics")
 require("config.transparency")
 vim.cmd.colorscheme("rose-pine")
 vim.api.nvim_set_hl(0, "CursorLineNr", {
@@ -25,10 +26,3 @@ vim.opt.guicursor = {
     "i-ci-ve:block-blinkwait500-blinkon500-blinkoff500",
     "r-cr:block-blinkwait500-blinkon500-blinkoff500",
 }
-
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.incsearch = true
-vim.opt.hlsearch = true
-vim.opt.wrap = false
-vim.opt.signcolumn = "yes"
