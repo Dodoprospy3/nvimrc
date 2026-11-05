@@ -1,6 +1,6 @@
 return {
   "Dodoprospy3/Latcher.nvim",
-  cmd = { "Latcher", "LatcherReassign" },
+  lazy = false,
   config = function()
     require("latcher").setup()
   end,
