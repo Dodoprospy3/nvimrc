@@ -4,6 +4,8 @@ local map = vim.keymap.set
 
 map("n", "<leader>w", "<cmd>w<CR>")
 map("n", "<leader>q", "<cmd>q<CR>")
+map("n", "<leader>W", "<cmd>Latcher<CR>", { desc = "Jump to visible window" })
+map("n", "<leader>R", "<cmd>LatcherReassign<CR>", { desc = "Reassign window number" })
 
 local prev_buf = nil
 
