@@ -54,10 +54,14 @@ return {
                 },
             })
 
+            -- Give EVERY server blink.cmp's full capability set (snippets,
+            -- completion resolve, etc.). Previously only vtsls got these.
+            vim.lsp.config("*", {
+                capabilities = require("blink.cmp").get_lsp_capabilities(),
+            })
+
             -- JavaScript / TypeScript
             vim.lsp.config("vtsls", {
-                capabilities = require("blink.cmp").get_lsp_capabilities(),
-
                 root_dir = function(bufnr, on_dir)
                     local root = vim.fs.root(bufnr, {
                         "package.json",
