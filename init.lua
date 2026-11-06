@@ -15,11 +15,12 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "Visual", {
-    fg = "#ffffff",
-    bg = "#666666",
-})
-vim.keymap.set("n", "<F5>", ":!python %<CR>", { desc = "Run Python file" })
+--vim.api.nvim_set_hl(0, "Visual", {
+--    fg = "#ffffff",
+--    bg = "#666666",
+--})
+
+-- vim.keymap.set("n", "<F5>", ":!python %<CR>", { desc = "Run Python file" })
 
 vim.opt.guicursor = {
     "n-v-c:block-blinkwait500-blinkon500-blinkoff500",

@@ -16,7 +16,7 @@ end
 vim.diagnostic.config({
     -- Refresh diagnostics on |InsertLeave| instead of on every keystroke,
     -- so the UI does not flicker while typing.
-    update_in_insert = false,
+    update_in_insert = true,
 
     -- Order by severity (ERROR > WARN > INFO > HINT) for signs, virtual
     -- text, virtual lines and floats.

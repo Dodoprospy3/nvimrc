@@ -41,11 +41,9 @@ return {
                     "fallback",
                 },
 
-                -- Manual trigger / toggle docs
+                -- Manual trigger
                 ["<C-space>"] = {
                     "show",
-                    "show_documentation",
-                    "hide_documentation",
                     "fallback",
                 },
 
@@ -55,46 +53,11 @@ return {
                     "fallback",
                 },
 
-                -- Scroll the documentation window
-                ["<C-b>"] = {
-                    "scroll_documentation_up",
-                    "fallback",
-                },
-
-                ["<C-f>"] = {
-                    "scroll_documentation_down",
-                    "fallback",
-                },
-
-                -- Toggle signature help (handy for JS/TS function arguments)
-                ["<C-k>"] = {
-                    "show_signature",
-                    "hide_signature",
-                    "fallback",
-                },
+                ["<C-k>"] = { "fallback" },
             },
 
-            completion = {
-                documentation = {
-                    -- Show the docs window automatically when an item is
-                    -- highlighted (was manual-only via <C-space>).
-                    auto_show = true,
-                    auto_show_delay_ms = 250,
-
-                    window = {
-                        -- Rounded docs window, matching the diagnostic float.
-                        border = "rounded",
-                    },
-                },
-
-                -- NOTE: the completion *menu* is deliberately left at its
-                -- default border (nil = none), so it stays un-rounded.
-            },
-
-            -- Inline signature help popup while typing call arguments
-            signature = {
-                enabled = true,
-            },
+            -- Signature help: disabled entirely.
+            signature = { enabled = false },
 
             sources = {
                 default = {

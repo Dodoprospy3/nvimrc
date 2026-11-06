@@ -6,6 +6,7 @@ map("n", "<leader>w", "<cmd>w<CR>")
 map("n", "<leader>q", "<cmd>q<CR>")
 map("n", "<leader>W", "<cmd>Latcher<CR>", { desc = "Jump to visible window" })
 map("n", "<leader>R", "<cmd>LatcherReassign<CR>", { desc = "Reassign window number" })
+map("n", "<leader>cs", "<cmd>TSContext toggle<CR>", { desc = "Toggle treesitter scope context" })
 
 local prev_buf = nil
 
@@ -82,3 +83,5 @@ map("n", "<C-u>", "<C-u>zz")
 
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
