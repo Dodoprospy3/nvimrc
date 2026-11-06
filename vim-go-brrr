@@ -1,4 +1,7 @@
-this is my personal Neovim config with 
-all of my plugins, feel free to use, but 
-you will also probably encounter 
-a dependency hell.
+this is my personal Neovim config 
+with all of my plugins, feel free 
+to use, but you will also probably 
+encounter a dependency hell. `:checkhealth`
+is your best friend
+
+i use arch, btw
