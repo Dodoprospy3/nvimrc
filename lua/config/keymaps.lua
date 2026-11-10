@@ -2,10 +2,10 @@ vim.g.mapleader = " "
 
 local map = vim.keymap.set
 
-map("n", "<leader>w", "<cmd>w<CR>")
-map("n", "<leader>q", "<cmd>q<CR>")
-map("n", "<leader>W", "<cmd>Latcher<CR>", { desc = "Jump to visible window" })
-map("n", "<leader>R", "<cmd>LatcherReassign<CR>", { desc = "Reassign window number" })
+-- map("n", "<leader>w", "<cmd>w<CR>")
+-- map("n", "<leader>q", "<cmd>q<CR>")
+map("n", "<leader>w", "<cmd>Latcher<CR>", { desc = "Jump to visible window" })
+map("n", "<leader>r", "<cmd>LatcherReassign<CR>", { desc = "Reassign window number" })
 map("n", "<leader>cs", "<cmd>TSContext toggle<CR>", { desc = "Toggle treesitter scope context" })
 
 local prev_buf = nil
@@ -36,10 +36,10 @@ end, { desc = "Toggle netrw" })
 
 map("n", "<Esc>", "<cmd>noh<CR><Esc>")
 
-map("n", "<leader>h", "<C-w>h")
-map("n", "<leader>j", "<C-w>j")
-map("n", "<leader>k", "<C-w>k")
-map("n", "<leader>l", "<C-w>l")
+-- map("n", "<leader>h", "<C-w>h")
+-- map("n", "<leader>j", "<C-w>j")
+-- map("n", "<leader>k", "<C-w>k")
+-- map("n", "<leader>l", "<C-w>l")
 
 map("n", "<C-Up>", "<cmd>resize +2<CR>")
 map("n", "<C-Down>", "<cmd>resize -2<CR>")
