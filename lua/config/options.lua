@@ -41,3 +41,13 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 if vim.fn.isdirectory(vim.o.undodir) == 0 then
     vim.fn.mkdir(vim.o.undodir, "p")
 end
+
+vim.g.netrw_banner = 0
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Briefly highlight yanked text",
+    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank({ timeout = 150 })
+    end,
+})
