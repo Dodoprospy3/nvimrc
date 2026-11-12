@@ -21,14 +21,22 @@ return {
                     -- TTY friendly
                     color_devicons = false,
 
+                    -- Best match goes at the top, right under the prompt.
+                    -- The default "descending" puts the best result at the bottom,
+                    -- which makes the list look wrong/jumbled.
+                    sorting_strategy = "ascending",
+
+                    -- Keep the filename visible and trim the directory instead of
+                    -- cutting off the part you actually searched for.
+                    path_display = { "smart" },
+
                     -- Avoid Treesitter preview crashes
                     preview = {
                         treesitter = false,
                     },
 
-                    -- Stop the fzy sorter from scoring 269k junk files.
-                    -- Without telescope-fzf-native.nvim this is pure Lua and is the
-                    -- #1 cause of the slowness you're seeing.
+                    -- Don't let module caches, package managers and plugin
+                    -- checkouts pollute results when searching from ~.
                     file_ignore_patterns = {
                         ".git/",
                         "node_modules/",
@@ -37,6 +45,9 @@ return {
                         ".npm/",
                         ".var/",
                         ".local/",
+                        ".rustup/",
+                        ".oh-my-zsh/",
+                        "go/pkg/",
                         "dist/",
                         "build/",
                         "target/",
@@ -72,12 +83,28 @@ return {
 
                     git_files = {
                         disable_devicons = true,
+                        show_untracked = true,
                     },
                 },
             })
 
-            vim.keymap.set("n", "<leader>ff", builtin.find_files, {
-                desc = "Find Files",
+            -- In a git repo, search only that project (tracked + untracked,
+            -- respecting .gitignore) instead of every file under ~.
+            local function project_files()
+                local inside = vim.fn.system({ "git", "rev-parse", "--is-inside-work-tree" })
+                if vim.v.shell_error == 0 and vim.trim(inside) == "true" then
+                    builtin.git_files({ show_untracked = true })
+                else
+                    builtin.find_files()
+                end
+            end
+
+            vim.keymap.set("n", "<leader>ff", project_files, {
+                desc = "Find Files (project)",
+            })
+
+            vim.keymap.set("n", "<leader>fF", builtin.find_files, {
+                desc = "Find Files (cwd)",
             })
 
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, {
@@ -88,9 +115,9 @@ return {
                 desc = "Find Buffers",
             })
 
-            -- Load the native fzf sorcer. Its setup() already overrides
-            -- file_sorter and generic_sorter with the C-backed fzf sorcer,
-            -- replacing the slow pure-Lua fzy sorcer.
+            -- Load the native fzf sorter. Its setup() already overrides
+            -- file_sorter and generic_sorter with the C-backed fzf sorter,
+            -- replacing the slow pure-Lua fzy sorter.
             telescope.load_extension("fzf")
         end,
     },
