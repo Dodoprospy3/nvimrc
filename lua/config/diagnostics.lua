@@ -14,8 +14,9 @@ local function swap_line(bufnr)
 end
 
 vim.diagnostic.config({
-    -- Refresh diagnostics on |InsertLeave| instead of on every keystroke,
-    -- so the UI does not flicker while typing.
+    -- Refresh diagnostics while in insert mode (so they're ready when shown
+    -- on InsertLeave), but virtual text is hidden in normal mode via autocmds
+    -- below, so there's no flicker while typing or browsing in normal mode.
     update_in_insert = true,
 
     -- Order by severity (ERROR > WARN > INFO > HINT) for signs, virtual
@@ -76,6 +77,62 @@ vim.diagnostic.config({
         source = "if_many",
     },
 })
+
+-- Hide virtual-text diagnostics in normal mode; show them while in insert
+-- mode. Keeps the buffer clean while navigating.
+local diag_normal_group = vim.api.nvim_create_augroup("config.diagnostics.normal_hide", { clear = true })
+
+local diag_virt_config = {
+    virtual_text = {
+        spacing = 4,
+        source = "if_many",
+        format = function(diagnostic)
+            if swap_line(diagnostic.bufnr) == diagnostic.lnum then
+                return nil
+            end
+            return diagnostic.message
+        end,
+    },
+    virtual_lines = {
+        current_line = true,
+        format = function(diagnostic)
+            if swap_line(diagnostic.bufnr) ~= diagnostic.lnum then
+                return nil
+            end
+            if diagnostic.code then
+                return string.format("%s: %s", diagnostic.code, diagnostic.message)
+            end
+            return diagnostic.message
+        end,
+    },
+}
+
+-- Entering insert or visual mode → hide virtual text + virtual lines.
+vim.api.nvim_create_autocmd({ "InsertEnter", "ModeChanged" }, {
+    group = diag_normal_group,
+    pattern = { "*", "*:[vV\x16]*" },  -- ModeChanged: any → visual/visual-line/visual-block
+    callback = function()
+        local m = vim.fn.mode()
+        if m:match("^[vV\22]") or m:match("^[iI]") then
+            vim.diagnostic.config({ virtual_text = false, virtual_lines = false })
+        end
+    end,
+})
+
+-- Returning to normal mode → show them.
+vim.api.nvim_create_autocmd({ "InsertLeave", "ModeChanged" }, {
+    group = diag_normal_group,
+    pattern = { "*", "*:n*" },  -- ModeChanged: any → normal
+    callback = function()
+        local m = vim.fn.mode()
+        if m == "n" then
+            vim.diagnostic.config(diag_virt_config)
+        end
+    end,
+})
+
+-- Show on startup (Neovim opens in normal mode).
+vim.diagnostic.config(diag_virt_config)
 
 -- <leader>vl: swap the current line's inline messages for virtual lines.
 -- Only lines with more than one diagnostic qualify (a single message already

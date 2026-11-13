@@ -56,6 +56,23 @@ return {
                 ["<C-k>"] = { "fallback" },
             },
 
+            appearance = {
+                -- Use text-only kind labels; no Nerd Font icons.
+                kind_icons = {},
+            },
+
+            completion = {
+                menu = {
+                    draw = {
+                        -- Remove kind_icon column entirely; keep label + kind text.
+                        columns = {
+                            { "label", "label_description", gap = 1 },
+                            { "kind" },
+                        },
+                    },
+                },
+            },
+
             -- Signature help: disabled entirely.
             signature = { enabled = false },
 

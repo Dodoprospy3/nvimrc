@@ -80,10 +80,18 @@ return {
                 -- real errors. A project's own jsconfig/tsconfig still
                 -- overrides this per-project. `js/ts` is the exact section
                 -- vtsls requests (see its configuration.schema.json).
+                --
+                -- strictNullChecks stays OFF globally: for loose browser
+                -- scripts every `document.querySelector(...)` would
+                -- otherwise produce "Object is possibly null" noise, since
+                -- tsserver cannot see the linked HTML to know the elements
+                -- exist. Genuinely-wrong code (undefined names, properties
+                -- that don't exist, syntax errors) is still reported.
                 settings = {
                     ["js/ts"] = {
                         implicitProjectConfig = {
                             checkJs = true,
+                            strictNullChecks = false,
                         },
                     },
                 },
