@@ -18,7 +18,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = 1 })
         end, opts)
-
-        vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
     end,
 })

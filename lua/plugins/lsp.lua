@@ -36,9 +36,9 @@ return {
 
                     -- C
                     "clangd",
-                -- JavaScript / TypeScript
 
                     -- JavaScript / TypeScript
+                    "vtsls",
 
                     -- Web
                     "html",
@@ -73,26 +73,21 @@ return {
                     on_dir(root or vim.fn.getcwd())
                 end,
 
-                -- Type-check plain JavaScript files that are NOT part of a
-                -- project (no jsconfig/tsconfig). Without this, tsserver only
-                -- reports "could not find name / property may not exist" as
-                -- low-severity HINTS (severity 4), so they never show up as
-                -- real errors. A project's own jsconfig/tsconfig still
-                -- overrides this per-project. `js/ts` is the exact section
-                -- vtsls requests (see its configuration.schema.json).
-                --
-                -- strictNullChecks stays OFF globally: for loose browser
-                -- scripts every `document.querySelector(...)` would
-                -- otherwise produce "Object is possibly null" noise, since
-                -- tsserver cannot see the linked HTML to know the elements
-                -- exist. Genuinely-wrong code (undefined names, properties
-                -- that don't exist, syntax errors) is still reported.
+                -- Do NOT type-check plain JavaScript files with TypeScript semantics.
+                -- `checkJs = false` disables TS type checking (parameter implicit any,
+                -- argument counts, missing properties, etc.), while still validating
+                -- real JavaScript syntax errors (unexpected tokens, unclosed blocks).
                 settings = {
                     ["js/ts"] = {
                         implicitProjectConfig = {
-                            checkJs = true,
+                            checkJs = false,
+                            strict = false,
                             strictNullChecks = false,
+                            strictFunctionTypes = false,
                         },
+                    },
+                    javascript = {
+                        validate = { enable = true },
                     },
                 },
             })
@@ -242,7 +237,9 @@ return {
 
                 -- C
                 "clangd",
+
                 -- JavaScript / TypeScript
+                "vtsls",
 
                 -- HTML / CSS
                 "html",

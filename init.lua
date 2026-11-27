@@ -6,10 +6,17 @@ require("config.lsp")
 require("config.diagnostics")
 vim.cmd.colorscheme("rose-pine")
 require("config.theme")
-require("config.transparency")
 
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
+
+require("config.theme")
+require("config.transparency")
+
+vim.api.nvim_set_hl(0, "CursorLineNr", {
+    fg = "#ffff00",
+    bold = true,
+})
 
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
 --vim.api.nvim_set_hl(0, "Visual", {
