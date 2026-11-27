@@ -4,9 +4,9 @@ require("config.neomd")
 require("config.lazy")
 require("config.lsp")
 require("config.diagnostics")
-require("config.transparency")
 vim.cmd.colorscheme("rose-pine")
 require("config.theme")
+require("config.transparency")
 
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"

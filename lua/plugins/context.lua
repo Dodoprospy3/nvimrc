@@ -17,7 +17,7 @@ return {
             })
 
             -- Subtle highlights so the scope line stands out but stays out of the way.
-            vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Comment" })
+            vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1a1b26", fg = "#c0caf5" })
             vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NonText" })
         end,
     },

@@ -36,9 +36,9 @@ return {
 
                     -- C
                     "clangd",
+                -- JavaScript / TypeScript
 
                     -- JavaScript / TypeScript
-                    "vtsls",
 
                     -- Web
                     "html",
@@ -242,9 +242,7 @@ return {
 
                 -- C
                 "clangd",
-
                 -- JavaScript / TypeScript
-                "vtsls",
 
                 -- HTML / CSS
                 "html",

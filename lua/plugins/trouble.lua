@@ -8,6 +8,8 @@ return {
         opts = {},
 
         config = function()
+            require("trouble").setup()
+
             vim.keymap.set(
                 "n",
                 "<leader>xx",
